@@ -4,6 +4,9 @@
 - Flutter
 - GetX - State Management
 
+## Demo
+[Watch Demo](https://jmp.sh/DgM6Tkc4)
+
 ## Folder Structure
 
 ```

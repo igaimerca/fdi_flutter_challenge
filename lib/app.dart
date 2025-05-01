@@ -1,4 +1,6 @@
+import 'package:fdi_challenge/shared/themes/text_styles.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'routes/app_pages.dart';
@@ -22,11 +24,7 @@ class MyApp extends StatelessWidget {
         appBarTheme: AppBarTheme(
           backgroundColor: AppColors.background,
           elevation: 0,
-          titleTextStyle: GoogleFonts.ibmPlexSans(
-            fontSize: 20,
-            fontWeight: FontWeight.w600,
-            color: AppColors.black,
-          ),
+          titleTextStyle: AppTextStyles.heading,
           iconTheme: const IconThemeData(color: AppColors.black),
         ),
       ),

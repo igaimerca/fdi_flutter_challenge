@@ -6,4 +6,5 @@ class AppColors {
   static const Color textMuted1 = Color(0xFF7F8790);
   static const Color textMuted2 = Color(0xFF8F92A1);
   static const Color background = Color(0xFFF8F8F8);
+  static const Color white = Color(0xFFFFFFFF);
 }

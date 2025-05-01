@@ -1,5 +1,7 @@
+import 'package:fdi_challenge/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ActionButtons extends StatelessWidget {
@@ -8,9 +10,13 @@ class ActionButtons extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = [
-      {'label': 'Top Up', 'icon': 'assets/icons/topup.png'},
-      {'label': 'Send', 'icon': 'assets/icons/send.png'},
-      {'label': 'Withdraw', 'icon': 'assets/icons/withdraw.png'},
+      {'label': 'Top Up', 'icon': 'assets/icons/topup.png', 'route': null},
+      {
+        'label': 'Send',
+        'icon': 'assets/icons/send.png',
+        'route': AppRoutes.sendMoney,
+      },
+      {'label': 'Withdraw', 'icon': 'assets/icons/withdraw.png', 'route': null},
     ];
 
     return Container(
@@ -21,27 +27,38 @@ class ActionButtons extends StatelessWidget {
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: items.map((item) {
-            return GestureDetector(
-            onTap: () {
-              print('${item['label']} tapped');
-            },
-            child: Column(
-              children: [
-              Image.asset(item['icon']!, width: 24, height: 24, color: Colors.white),
-              const SizedBox(height: 8),
-              Text(
-                item['label']!,
-                style: GoogleFonts.roboto(
-                color: Colors.white,
-                fontSize: 9.4.sp,
-                fontWeight: FontWeight.w500,
+        children:
+            items.map((item) {
+              return InkWell(
+                splashFactory: InkRipple.splashFactory,
+                splashColor: Colors.white.withAlpha(50),
+                highlightColor: Colors.white.withAlpha(25),
+                onTap: () {
+                  if (item['route'] != null) {
+                    Get.toNamed(item['route']!);
+                  }
+                },
+                child: Column(
+                  children: [
+                    Image.asset(
+                      item['icon']!,
+                      width: 24,
+                      height: 24,
+                      color: Colors.white,
+                    ),
+                    const SizedBox(height: 8),
+                    Text(
+                      item['label']!,
+                      style: GoogleFonts.roboto(
+                        color: Colors.white,
+                        fontSize: 9.4.sp,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-              ],
-            ),
-            );
-        }).toList(),
+              );
+            }).toList(),
       ),
     );
   }

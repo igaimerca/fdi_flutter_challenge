@@ -1,9 +1,11 @@
+import 'package:fdi_challenge/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:fdi_challenge/shared/themes/app_colors.dart';
 import 'package:fdi_challenge/shared/themes/text_styles.dart';
 import 'package:fdi_challenge/shared/widgets/primary_button.dart';
+  import 'package:intl/intl.dart';
 
 class SendMoneyView extends StatefulWidget {
   const SendMoneyView({super.key});
@@ -23,17 +25,35 @@ class _SendMoneyViewState extends State<SendMoneyView> {
         }
       } else if (key == '.') {
         if (!amount.contains('.')) {
-          amount += '.';
+          // Prevent dot as first character
+          if (amount.isEmpty) {
+            amount = '0.';
+          } else {
+            amount += '.';
+          }
         }
       } else {
-        amount += key;
+        // Prevent leading zeros unless followed by a dot or another number
+        if (amount == '0' && key == '0') return;
+        if (amount == '0' && key != '.') {
+          amount = key; // Replace leading zero with the new number
+        } else {
+          amount += key;
+        }
+      }
+
+      if (amount.isNotEmpty && amount != '0' && !amount.endsWith('.')) {
+        final parsedAmount = double.tryParse(amount.replaceAll(',', ''));
+        if (parsedAmount != null) {
+          amount = NumberFormat('#,##0.##').format(parsedAmount);
+        }
       }
     });
   }
 
+
   @override
   Widget build(BuildContext context) {
-    final keys = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '.', '0', '⌫'];
 
     return Scaffold(
       backgroundColor: AppColors.white,
@@ -67,7 +87,7 @@ class _SendMoneyViewState extends State<SendMoneyView> {
             child: Column(
               children: [
                 CircleAvatar(
-                  radius: 60,
+                  radius: 50,
                   backgroundImage: const AssetImage(
                     'assets/images/profile.png',
                   ),
@@ -125,8 +145,11 @@ class _SendMoneyViewState extends State<SendMoneyView> {
 
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 24),
-            child: PrimaryButton(text: 'Send', onPressed: () {}),
+            child: PrimaryButton(text: 'Send', onPressed: () {
+              Get.toNamed(AppRoutes.receipt);
+            }),
           ),
+          const SizedBox(height: 8),
         ],
       ),
     );

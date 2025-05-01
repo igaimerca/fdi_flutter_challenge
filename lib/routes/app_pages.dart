@@ -8,7 +8,7 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/send_money/views/send_money_view.dart';
 import '../modules/send_money/bindings/send_money_binding.dart';
 
-import '../modules/receipt/views/receipt_view.dart';
+import '../modules/receipt/views/transfer_receipt_view.dart';
 import '../modules/receipt/bindings/receipt_binding.dart';
 
 import 'app_routes.dart';
@@ -34,7 +34,7 @@ class AppPages {
     ),
     GetPage(
       name: AppRoutes.receipt,
-      page: () => const ReceiptView(),
+      page: () =>  TransferReceiptView(),
       binding: ReceiptBinding(),
     ),
   ];
